@@ -1,13 +1,18 @@
-import React from "react";
-import { Image, StyleSheet, TextInput } from "react-native";
+import React, { useCallback } from "react";
+import { Button, Image, StyleSheet, TextInput } from "react-native";
 
 import Colors from "../constants/Colors";
 import { ExternalLink } from "./ExternalLink";
 import { MonoText } from "./StyledText";
 import { Text, View } from "./Themed";
 import { Avatar } from "@rneui/themed";
+import { router } from "expo-router";
 
 export default function EditScreenInfo({ path }: { path: string }) {
+  const handlePress = useCallback(() => {
+    router.push("/home");
+  }, []);
+
   return (
     <View>
       <View style={styles.getStartedContainer}>
@@ -25,6 +30,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
           source={{ uri: "https://reactjs.org/logo-og.png" }}
           style={{ width: 400, height: 400 }}
         />
+        <Button title="Homeへ戻る" onPress={handlePress} />
         <TextInput
           style={{
             height: 40,
