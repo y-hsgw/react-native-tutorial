@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, TextInput } from "react-native";
 
 import Colors from "../constants/Colors";
 import { ExternalLink } from "./ExternalLink";
@@ -24,6 +24,15 @@ export default function EditScreenInfo({ path }: { path: string }) {
         <Image
           source={{ uri: "https://reactjs.org/logo-og.png" }}
           style={{ width: 400, height: 400 }}
+        />
+        <TextInput
+          style={{
+            height: 40,
+            borderColor: "gray",
+            borderWidth: 1,
+            color: "white",
+          }}
+          defaultValue="You can type in me"
         />
         <Text
           style={styles.getStartedText}
