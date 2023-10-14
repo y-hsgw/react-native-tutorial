@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 
 import Colors from "../constants/Colors";
 import { ExternalLink } from "./ExternalLink";
@@ -20,6 +20,10 @@ export default function EditScreenInfo({ path }: { path: string }) {
             borderStyle: "solid",
             borderWidth: 1,
           }}
+        />
+        <Image
+          source={{ uri: "https://reactjs.org/logo-og.png" }}
+          style={{ width: 400, height: 400 }}
         />
         <Text
           style={styles.getStartedText}
