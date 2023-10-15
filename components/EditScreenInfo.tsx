@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { Button, Image, StyleSheet, TextInput } from "react-native";
+import React, { useCallback, useRef } from "react";
+import { Animated, Button, Image, StyleSheet, TextInput } from "react-native";
 
 import Colors from "../constants/Colors";
 import { ExternalLink } from "./ExternalLink";
@@ -9,8 +9,22 @@ import { Avatar } from "@rneui/themed";
 import { router } from "expo-router";
 
 export default function EditScreenInfo({ path }: { path: string }) {
-  const handlePress = useCallback(() => {
+  const { current: fadeAnimation } = useRef(new Animated.Value(0));
+
+  const handlePressBackHome = useCallback(() => {
     router.push("/home");
+  }, []);
+
+  const handlePressFadeInButton = useCallback(() => {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: 5000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
+  const handleResetButton = useCallback(() => {
+    fadeAnimation.setValue(0);
   }, []);
 
   return (
@@ -30,7 +44,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
           source={{ uri: "https://reactjs.org/logo-og.png" }}
           style={{ width: 400, height: 400 }}
         />
-        <Button title="Homeへ戻る" onPress={handlePress} />
+        <Button title="Homeへ戻る" onPress={handlePressBackHome} />
         <TextInput
           style={{
             height: 40,
@@ -40,6 +54,15 @@ export default function EditScreenInfo({ path }: { path: string }) {
           }}
           defaultValue="You can type in me"
         />
+        <Button title="Fade In Start" onPress={handlePressFadeInButton} />
+        <Animated.View
+          style={{
+            opacity: fadeAnimation,
+          }}
+        >
+          <Text>Fade In</Text>
+          <Button title="reset" onPress={handleResetButton} />
+        </Animated.View>
         <Text
           style={styles.getStartedText}
           lightColor="rgba(0,0,0,0.8)"
