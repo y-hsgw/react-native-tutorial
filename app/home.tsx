@@ -23,12 +23,12 @@ const schedulePushNotification = async () => {
 };
 
 export default function Home() {
-  const [notification, setNotification] =
-    useState<Notifications.Notification>();
+  const [notificationContent, setNotificationContent] =
+    useState<Notifications.NotificationContent>();
 
   useEffect(() => {
     const notificationListener = Notifications.addNotificationReceivedListener(
-      (notification) => setNotification(notification),
+      (notification) => setNotificationContent(notification.request.content),
     );
     const responseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
@@ -50,9 +50,9 @@ export default function Home() {
         darkColor="rgba(255,255,255,0.1)"
       />
       <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text>Title: {notification?.request.content.title} </Text>
-        <Text>Body: {notification?.request.content.body}</Text>
-        <Text>Data: {JSON.stringify(notification?.request.content.data)}</Text>
+        <Text>Title: {notificationContent?.title} </Text>
+        <Text>Body: {notificationContent?.body}</Text>
+        <Text>Data: {JSON.stringify(notificationContent?.data)}</Text>
       </View>
       <Button
         title="Press to schedule a notification"
